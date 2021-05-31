@@ -278,8 +278,8 @@ public class Cube {
 
     public int numMisOriented() {
         int count = 0;
-        for (int i = 0; i < edges.length; i++) {
-            if (!edges[i].isOriented()) {
+        for (Edge edge : edges) {
+            if (!edge.isOriented()) {
                 count++;
             }
         }
@@ -288,8 +288,8 @@ public class Cube {
 
     public int numMisOrientedSubset(int[] subset) {
         int count = 0;
-        for (int i = 0; i < subset.length; i++) {
-            if (!edges[subset[i]].isOriented()) {
+        for (int j : subset) {
+            if (!edges[j].isOriented()) {
                 count++;
             }
         }
@@ -308,24 +308,42 @@ public class Cube {
                 B();
                 solution += "B ";
             } else {
-                int rand = (int) (Math.random() * 4);
-                switch (rand) {
-                    case 0:
-                        R();
-                        solution += "R ";
-                        break;
-                    case 1:
-                        L();
-                        solution += "L ";
-                        break;
-                    case 2:
-                        U();
-                        solution += "U ";
-                        break;
-                    case 3:
-                        D();
-                        solution += "D ";
-                        break;
+                if (edges[2].isOriented() != edges[1].isOriented()) {
+                    U();
+                    solution += "U ";
+                } else if (edges[2].isOriented() != edges[3].isOriented()) {
+                    Uprime();
+                    solution += "U' ";
+                } else if (edges[2].isOriented() != edges[0].isOriented()) {
+                    U2();
+                    solution += "U2 ";
+                } else if (edges[4].isOriented() != edges[5].isOriented()) {
+                    Dprime();
+                    solution += "D' ";
+                } else if (edges[4].isOriented() != edges[7].isOriented()) {
+                    D();
+                    solution += "D ";
+                } else if (edges[4].isOriented() != edges[6].isOriented()) {
+                    D2();
+                    solution += "D2 ";
+                } else if (edges[8].isOriented() != edges[1].isOriented()) {
+                    Rprime();
+                    solution += "R' ";
+                } else if (edges[8].isOriented() != edges[5].isOriented()) {
+                    R();
+                    solution += "R ";
+                } else if (edges[8].isOriented() != edges[10].isOriented()) {
+                    R2();
+                    solution += "R2 ";
+                } else if (edges[9].isOriented() != edges[3].isOriented()) {
+                    L();
+                    solution += "L ";
+                } else if (edges[9].isOriented() != edges[7].isOriented()) {
+                    Lprime();
+                    solution += "L' ";
+                } else if (edges[9].isOriented() != edges[11].isOriented()) {
+                    L2();
+                    solution += "L2 ";
                 }
             }
         }
@@ -347,6 +365,11 @@ public class Cube {
                     } else if (!edges[3].isOriented()) {
                         L();
                         solution += "L ";
+                    } else if (!edges[0].isOriented()) {
+                        if (edges[4].isOriented()) {
+                            B2();
+                            solution += "B2 ";
+                        }
                     }
                 }
                 if (numMisOrientedSubset(new int[]{4, 5, 6, 7}) > 1) {
@@ -356,6 +379,11 @@ public class Cube {
                     } else if (!edges[7].isOriented()) {
                         Lprime();
                         solution += "L' ";
+                    } else if (!edges[6].isOriented()) {
+                        if (edges[0].isOriented()) {
+                            B2();
+                            solution += "B2 ";
+                        }
                     }
                 }
                 if (numMisOrientedSubset(new int[]{1, 8, 5, 10}) > 1) {
@@ -365,6 +393,14 @@ public class Cube {
                     } else if (!edges[5].isOriented()) {
                         Dprime();
                         solution += "D' ";
+                    } else if (!edges[10].isOriented()) {
+                        if (edges[9].isOriented()) {
+                            B2();
+                            solution += "B2 ";
+                        } else {
+                            Rprime();
+                            solution += "R' ";
+                        }
                     }
                 }
                 if (numMisOrientedSubset(new int[]{3, 9, 7, 11}) > 1) {
@@ -374,19 +410,63 @@ public class Cube {
                     } else if (!edges[7].isOriented()) {
                         D();
                         solution += "D ";
+                    } else if (!edges[11].isOriented()) {
+                        if (edges[8].isOriented()) {
+                            B2();
+                            solution += "B2 ";
+                        } else {
+                            L();
+                            solution += "L ";
+                        }
                     }
                 }
                 if (edges[2].isOriented()) {
-                    U();
+                    if (!edges[1].isOriented()) {
+                        U();
+                        solution += "U ";
+                    } else if (!edges[3].isOriented()) {
+                        Uprime();
+                        solution += "U' ";
+                    } else if (!edges[0].isOriented()) {
+                        U2();
+                        solution += "U2 ";
+                    }
                 }
                 if (edges[4].isOriented()) {
-                    D();
+                    if (!edges[5].isOriented()) {
+                        Dprime();
+                        solution += "D' ";
+                    } else if (!edges[7].isOriented()) {
+                        D();
+                        solution += "D ";
+                    } else if (!edges[6].isOriented()) {
+                        D2();
+                        solution += "D2 ";
+                    }
                 }
                 if (edges[8].isOriented()) {
-                    R();
+                    if (!edges[1].isOriented()) {
+                        Rprime();
+                        solution += "R' ";
+                    } else if (!edges[5].isOriented()) {
+                        R();
+                        solution += "R ";
+                    } else if (!edges[10].isOriented()) {
+                        R2();
+                        solution += "R2 ";
+                    }
                 }
-                if (edges[2].isOriented()) {
-                    L();
+                if (edges[9].isOriented()) {
+                    if (!edges[3].isOriented()) {
+                        L();
+                        solution += "L ";
+                    } else if (!edges[7].isOriented()){
+                        Lprime();
+                        solution += "L' ";
+                    } else if (!edges[11].isOriented()) {
+                        L2();
+                        solution += "L2 ";
+                    }
                 }
             }
         }
