@@ -2,6 +2,7 @@ public class Cube {
 
     private Corner[] corners;
     private Edge[] edges;
+    private String solution;
 
     public Cube(){
         corners = new Corner[8];
@@ -265,5 +266,129 @@ public class Cube {
             }
         }
     }
-}
 
+    public String getSolution() {
+        return solution;
+    }
+
+    public void solve() {
+        solution = "";
+        solveEO();
+    }
+
+    public int numMisOriented() {
+        int count = 0;
+        for (int i = 0; i < edges.length; i++) {
+            if (!edges[i].isOriented()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int numMisOrientedSubset(int[] subset) {
+        int count = 0;
+        for (int i = 0; i < subset.length; i++) {
+            if (!edges[subset[i]].isOriented()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    //orients all edges
+    public void solveEO() {
+        //first loop does F, B, and if necessary other random moves to get the number of mis-oriented edges to be a
+        //multiple of 4
+        while (numMisOriented()%4 != 0) {
+            if (numMisOrientedSubset(new int[]{2, 8, 9, 4}) % 2 == 1){
+                F();
+                solution += "F ";
+            } else if (numMisOrientedSubset(new int[]{0, 10, 11, 6}) % 2 == 1) {
+                B();
+                solution += "B ";
+            } else {
+                int rand = (int) (Math.random() * 4);
+                switch (rand) {
+                    case 0:
+                        R();
+                        solution += "R ";
+                        break;
+                    case 1:
+                        L();
+                        solution += "L ";
+                        break;
+                    case 2:
+                        U();
+                        solution += "U ";
+                        break;
+                    case 3:
+                        D();
+                        solution += "D ";
+                        break;
+                }
+            }
+        }
+        //second loop orients all edges
+        while (numMisOriented() > 0) {
+            if (numMisOrientedSubset(new int[]{0, 10, 11, 6}) == 4) {
+                B();
+                solution += "B ";
+            }
+            if (numMisOrientedSubset(new int[]{2, 8, 9, 4}) == 4) {
+                F();
+                solution += "F ";
+            }
+            if (numMisOriented() > 0) {
+                if (numMisOrientedSubset(new int[]{0, 1, 2, 3}) > 1) {
+                    if (!edges[1].isOriented()) {
+                        Rprime();
+                        solution += "R' ";
+                    } else if (!edges[3].isOriented()) {
+                        L();
+                        solution += "L ";
+                    }
+                }
+                if (numMisOrientedSubset(new int[]{4, 5, 6, 7}) > 1) {
+                    if (!edges[5].isOriented()) {
+                        R();
+                        solution += "R ";
+                    } else if (!edges[7].isOriented()) {
+                        Lprime();
+                        solution += "L' ";
+                    }
+                }
+                if (numMisOrientedSubset(new int[]{1, 8, 5, 10}) > 1) {
+                    if (!edges[1].isOriented()) {
+                        U();
+                        solution += "U ";
+                    } else if (!edges[5].isOriented()) {
+                        Dprime();
+                        solution += "D' ";
+                    }
+                }
+                if (numMisOrientedSubset(new int[]{3, 9, 7, 11}) > 1) {
+                    if (!edges[3].isOriented()) {
+                        Uprime();
+                        solution += "U' ";
+                    } else if (!edges[7].isOriented()) {
+                        D();
+                        solution += "D ";
+                    }
+                }
+                if (edges[2].isOriented()) {
+                    U();
+                }
+                if (edges[4].isOriented()) {
+                    D();
+                }
+                if (edges[8].isOriented()) {
+                    R();
+                }
+                if (edges[2].isOriented()) {
+                    L();
+                }
+            }
+        }
+    }
+}
