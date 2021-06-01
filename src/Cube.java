@@ -275,6 +275,7 @@ public class Cube {
         solution = "";
         solveEO();
         solveCross();
+        solveBlueOrange();
     }
 
     public int numMisOriented() {
@@ -613,6 +614,179 @@ public class Cube {
                 Lprime();
                 D();
                 solution += "D' L' D ";
+            }
+        }
+    }
+
+    //solves orange-blue F2L pair into back left
+    public void solveBlueOrange() {
+        //moves orange blue edge into UL position (edge 3)
+        if (edges[0].matches("BO")) {
+            Uprime();
+            solution += "U' ";
+        } else if (edges[1].matches("BO")) {
+            U2();
+            solution += "U2 ";
+        } else if (edges[2].matches("BO")) {
+            U();
+            solution += "U ";
+        } else if (edges[8].matches("BO")) {
+            R();
+            U2();
+            Rprime();
+            solution += "R U2 R' ";
+        } else if (edges[9].matches("BO")) {
+            Lprime();
+            Uprime();
+            L();
+            U();
+            solution += "L' U' L U ";
+        } else if (edges[10].matches("B0")) {
+            Rprime();
+            U2();
+            R();
+            solution += "R' U2 R ";
+        } else if (edges[11].matches("BO")) {
+            L();
+            U();
+            Lprime();
+            Uprime();
+            solution += "L U L' U' ";
+        }
+        //pairs and inserts corner with edge
+        while (!(edges[11].matches("BO") && corners[7].matches("YBO"))) {
+            if (corners[0].matches("YBO")) {
+                L();
+                U2();
+                Lprime();
+                solution += "L U2 L' ";
+            } else if (corners[0].matches("BOY")) {
+                U();
+                L();
+                Uprime();
+                Lprime();
+                solution += "U L U' L' ";
+            } else if (corners[0].matches("OYB")) {
+                Uprime();
+                L();
+                Uprime();
+                Lprime();
+                U2();
+                solution += "U' L U' L' U2 ";
+            } else if (corners[1].matches("YBO")) {
+                L();
+                U2();
+                Lprime();
+                solution += "L U2 L' ";
+            } else if (corners[1].matches("BOY")) {
+                R();
+                U();
+                Rprime();
+                Uprime();
+                solution += "R U R' U' ";
+            } else if (corners[1].matches("OYB")) {
+                Uprime();
+                L();
+                U();
+                Lprime();
+                solution += "U' L U L' ";
+            } else if (corners[2].matches("YBO")) {
+                L();
+                U();
+                Lprime();
+                solution += "L U L' ";
+            } else if (corners[2].matches("BOY")) {
+                Uprime();
+                R();
+                U2();
+                Rprime();
+                Uprime();
+                solution += "U' R U2 R' U' ";
+            } else if (corners[2].matches("OYB")) {
+                L();
+                Uprime();
+                Lprime();
+                solution += "L U' L' ";
+            } else if (corners[3].matches("YBO")) {
+                R();
+                Uprime();
+                Rprime();
+                Uprime();
+                R();
+                Uprime();
+                Rprime();
+                U2();
+                solution += "R U' R' U' R U' R' U2 ";
+            } else if (corners[3].matches("BOY")) {
+                L();
+                U();
+                Lprime();
+                solution += "L U L' ";
+            } else if (corners[3].matches("OYB")) {
+                Uprime();
+                Rprime();
+                U2();
+                R();
+                Uprime();
+                solution += "U' R' U2 R U' ";
+            } else if (corners[4].matches("YBO")) {
+                U2();
+                Lprime();
+                U();
+                L();
+                U();
+                solution += "U2 L' U L U";
+            } else if (corners[4].matches("BOY")) {
+                U();
+                Lprime();
+                U();
+                L();
+                U2();
+                solution += "U L' U L U2 ";
+            } else if (corners[4].matches("OYB")) {
+                Uprime();
+                Lprime();
+                U2();
+                L();
+                Uprime();
+                solution += "U' L' U2 L U' ";
+            } else if (corners[5].matches("YBO")) {
+                U();
+                R();
+                Uprime();
+                Rprime();
+                solution += "U R U' R' ";
+            } else if (corners[5].matches("BOY")) {
+                U();
+                R();
+                Uprime();
+                Rprime();
+                solution += "U R U' R' ";
+            } else if (corners[5].matches("OYB")) {
+                U2();
+                R();
+                Uprime();
+                Rprime();
+                U2();
+                solution += "U2 R U' R' U2 ";
+            } else if (corners[6].matches("YBO")) {
+                Rprime();
+                U();
+                R();
+                Uprime();
+                solution += "R' U R U' ";
+            } else if (corners[6].matches("BOY")) {
+                Uprime();
+                Rprime();
+                U();
+                R();
+                solution += "U' R' U R ";
+            } else if (corners[6].matches("OYB")) {
+                U();
+                Rprime();
+                Uprime();
+                R();
+                solution += "U R' U' R ";
             }
         }
     }

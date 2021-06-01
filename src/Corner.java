@@ -45,4 +45,8 @@ public class Corner {
         c2 = c3;
         c3 = temp;
     }
+
+    public boolean matches(String piece) {
+        return (("" + c1 + c2 + c3).equals(piece));
+    }
 }
