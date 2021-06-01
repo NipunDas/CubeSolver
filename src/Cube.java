@@ -274,6 +274,7 @@ public class Cube {
     public void solve() {
         solution = "";
         solveEO();
+        solveCross();
     }
 
     public int numMisOriented() {
@@ -468,6 +469,150 @@ public class Cube {
                         solution += "L2 ";
                     }
                 }
+            }
+        }
+    }
+
+    //solves the yellow cross
+    public void solveCross() {
+        //solves yellow-blue cross piece
+        while (!edges[6].matches("YB")) {
+            if (edges[0].matches("YB")) {
+                B2();
+                solution += "B2 ";
+            } else if (edges[1].matches("YB")) {
+                R2();
+                solution += "R2 ";
+            } else if (edges[2].matches("YB")) {
+                F2();
+                solution += "F2 ";
+            } else if (edges[3].matches("YB")) {
+                L2();
+                solution += "L2 ";
+            } else if (edges[4].matches("YB")) {
+                D2();
+                solution += "D2 ";
+            } else if (edges[5].matches("YB")) {
+                D();
+                solution += "D ";
+            } else if (edges[7].matches("YB")) {
+                Dprime();
+                solution += "D' ";
+            } else if (edges[8].matches("YB")) {
+                Rprime();
+                solution += "R' ";
+            } else if (edges[9].matches("YB")) {
+                L();
+                solution += "L ";
+            } else if (edges[10].matches("YB")) {
+                R();
+                solution += "R ";
+            } else if (edges[11].matches("YB")) {
+                Lprime();
+                solution += "L' ";
+            }
+        }
+        //solves yellow-orange cross piece
+        while (!edges[7].matches("YO")) {
+            if (edges[0].matches("YO")) {
+                Uprime();
+                solution += "U' ";
+            } else if (edges[1].matches("YO")) {
+                U2();
+                solution += "U2 ";
+            } else if (edges[2].matches("YO")) {
+                U();
+                solution += "U ";
+            } else if (edges[3].matches("YO")) {
+                L2();
+                solution += "L2 ";
+            } else if (edges[4].matches("YO")) {
+                F2();
+                solution += "F2 ";
+            } else if (edges[5].matches("YO")) {
+                R2();
+                solution += "R2 ";
+            } else if (edges[8].matches("YO")) {
+                F2();
+                solution += "F2 ";
+            } else if (edges[9].matches("YO")) {
+                L();
+                solution += "L ";
+            } else if (edges[10].matches("YO")) {
+                Rprime();
+                solution += "R' ";
+            } else if (edges[11].matches("YO")) {
+                Lprime();
+                solution += "L' ";
+            }
+        }
+        //solves yellow-red cross piece
+        while (!edges[5].matches("YR")) {
+            if (edges[0].matches("YR")) {
+                U();
+                solution += "U ";
+            } else if (edges[1].matches("YR")) {
+                R2();
+                solution += "R2 ";
+            } else if (edges[2].matches("YR")) {
+                Uprime();
+                solution += "U' ";
+            } else if (edges[3].matches("YR")) {
+                U2();
+                solution += "U2 ";
+            } else if (edges[4].matches("YR")) {
+                F2();
+                solution += "F2 ";
+            } else if (edges[8].matches("YR")) {
+                Rprime();
+                solution += "R' ";
+            } else if (edges[9].matches("YR")) {
+                F2();
+                solution += "F2 ";
+            } else if (edges[10].matches("YR")) {
+                R();
+                solution += "R ";
+            } else if (edges[11].matches("YR")) {
+                D2();
+                Lprime();
+                D2();
+                solution += "D2 L' D2 ";
+            }
+        }
+        //solves yellow-green cross edge
+        while (!edges[4].matches("YG")) {
+            if (edges[0].matches("YG")) {
+                U2();
+                solution += "U2 ";
+            } else if (edges[1].matches("YG")) {
+                U();
+                solution += "U ";
+            } else if (edges[2].matches("YG")) {
+                F2();
+                solution += "F2 ";
+            } else if (edges[3].matches("YG")) {
+                Uprime();
+                solution += "U' ";
+            } else if (edges[8].matches("YG")) {
+                D();
+                Rprime();
+                Dprime();
+                solution += "D R' D' ";
+            } else if (edges[9].matches("YG")) {
+                Dprime();
+                L();
+                D();
+                solution += "D' L D ";
+            } else if (edges[10].matches("YG")) {
+                D();
+                R();
+                Dprime();
+                solution += "D R D' ";
+            } else if (edges[11].matches("YG")) {
+                Dprime();
+                Lprime();
+                D();
+                solution += "D' L' D ";
             }
         }
     }

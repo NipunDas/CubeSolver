@@ -42,4 +42,8 @@ public class Edge {
             }
         }
     }
+
+    public boolean matches(String piece) {
+        return (("" + c1 + c2).equals(piece));
+    }
 }
