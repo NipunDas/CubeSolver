@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Cube {
 
     private Corner[] corners;
@@ -276,6 +278,12 @@ public class Cube {
         solveEO();
         solveCross();
         solveBlueOrange();
+        //simplifying the solution using cancellations
+        ArrayList<String> moves = new ArrayList<>();
+        String temp = "";
+        for (int i = 0; i < solution.length(); i++) {
+
+        }
     }
 
     public int numMisOriented() {
@@ -371,6 +379,14 @@ public class Cube {
                         if (edges[4].isOriented()) {
                             B2();
                             solution += "B2 ";
+                        } else if (edges[8].isOriented()) {
+                            U();
+                            Rprime();
+                            solution += "U R' ";
+                        } else if (edges[9].isOriented()) {
+                            Uprime();
+                            L();
+                            solution += "U' L ";
                         }
                     }
                 }
@@ -382,9 +398,17 @@ public class Cube {
                         Lprime();
                         solution += "L' ";
                     } else if (!edges[6].isOriented()) {
-                        if (edges[0].isOriented()) {
+                        if (edges[2].isOriented()) {
                             B2();
                             solution += "B2 ";
+                        } else if (edges[8].isOriented()) {
+                            D();
+                            R();
+                            solution += "D R ";
+                        } else if (edges[9].isOriented()) {
+                            Dprime();
+                            Lprime();
+                            solution += "D' L' ";
                         }
                     }
                 }
@@ -624,28 +648,34 @@ public class Cube {
         if (edges[0].matches("BO")) {
             Uprime();
             solution += "U' ";
+            System.out.println("test1");
         } else if (edges[1].matches("BO")) {
             U2();
             solution += "U2 ";
+            System.out.println("test2");
         } else if (edges[2].matches("BO")) {
             U();
             solution += "U ";
+            System.out.println("test3");
         } else if (edges[8].matches("BO")) {
             R();
             U2();
             Rprime();
             solution += "R U2 R' ";
+            System.out.println("test4");
         } else if (edges[9].matches("BO")) {
             Lprime();
             Uprime();
             L();
             U();
             solution += "L' U' L U ";
-        } else if (edges[10].matches("B0")) {
+            System.out.println("test5");
+        } else if (edges[10].matches("BO")) {
             Rprime();
             U2();
             R();
             solution += "R' U2 R ";
+            //System.out.println("test");
         } else if (edges[11].matches("BO")) {
             L();
             U();
@@ -787,6 +817,24 @@ public class Cube {
                 Uprime();
                 R();
                 solution += "U R' U' R ";
+            } else if (corners[7].matches("YBO")) {
+                Uprime();
+                D();
+                L();
+                U();
+                Lprime();
+                Dprime();
+                solution += "U' D L U L' D' ";
+            } else if (corners[7].matches("BOY")) {
+                L();
+                U();
+                Lprime();
+                solution += "L U L' ";
+            } else if (corners[7].matches("OYB")) {
+                L();
+                Uprime();
+                Lprime();
+                solution += "L U' L' ";
             }
         }
     }
