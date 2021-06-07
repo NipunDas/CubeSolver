@@ -2,7 +2,7 @@ public class Driver {
 
     public static void main(String[] args) {
         Cube cube = new Cube();
-        cube.scramble("U' F D R2 U2 R U R B2 D2 L' F2 L' U2 L2 F2 R D2 R2 F' R");
+        cube.scramble("F L' R2 D' F2 R2 U' B2 F2 U' L2 U B2 L' D2 R B U L D' B'");
         cube.print();
         cube.solve();
         System.out.println();
