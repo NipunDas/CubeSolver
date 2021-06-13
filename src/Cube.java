@@ -1,4 +1,6 @@
+import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
+import java.util.logging.LoggingPermission;
 
 public class Cube {
 
@@ -279,6 +281,7 @@ public class Cube {
         solveCross();
         solveBlueOrange();
         solveBlueRed();
+        solveGreenOrange();
         //simplifying the solution using cancellations
         ArrayList<String> moves = new ArrayList<>();
         String temp = "";
@@ -643,7 +646,7 @@ public class Cube {
         }
     }
 
-    //solves orange-blue F2L pair into back left
+    //solves blue-orange F2L pair into back left
     public void solveBlueOrange() {
         //moves orange-blue edge into UL position (edge 3)
         if (edges[0].matches("BO")) {
@@ -835,6 +838,7 @@ public class Cube {
         }
     }
 
+    //solves blue-red F2L pair into back right
     public void solveBlueRed() {
         //moves red-blue edge into UL position (edge 1)
         if (edges[0].matches("BR")) {
@@ -843,7 +847,7 @@ public class Cube {
         } else if (edges[2].matches("BR")) {
             Uprime();
             solution += "U' ";
-        } else if (edges[3].matches("BO")) {
+        } else if (edges[3].matches("BR")) {
             U2();
             solution += "U2 ";
         } else if (edges[8].matches("BR")) {
@@ -877,7 +881,7 @@ public class Cube {
                 Rprime();
                 Uprime();
                 R();
-                solution += "U R' U' R";
+                solution += "U R' U' R ";
             } else if (corners[0].matches("BYR")) {
                 Lprime();
                 Uprime();
@@ -946,7 +950,7 @@ public class Cube {
                 Lprime();
                 U();
                 L();
-                solution += "U' L' U L";
+                solution += "U' L' U L ";
             } else if (corners[4].matches("RBY")) {
                 U2();
                 Lprime();
@@ -1000,6 +1004,147 @@ public class Cube {
                 Uprime();
                 R();
                 solution += "R' U' R' ";
+            }
+        }
+    }
+
+    //solves green-orange F2L pair into front left
+    public void solveGreenOrange() {
+        //moves green-orange edge into UL position (edge 1)
+        if (edges[0].matches("GO")) {
+            Uprime();
+            solution += "U' ";
+        } else if (edges[1].matches("GO")) {
+            U2();
+            solution += "U2 ";
+        } else if (edges[2].matches("GO")) {
+            U();
+            solution += "U ";
+        } else if (edges[8].matches("GO")) {
+            R();
+            U2();
+            Rprime();
+            solution += "R U2 R' ";
+        } else if (edges[9].matches("GO")) {
+            Lprime();
+            U();
+            L();
+            Uprime();
+            solution += "L' U L U' ";
+        }
+
+        //pairs and inserts corner with edge
+        while (!(edges[9].matches("GO") && corners[4].matches("YOG"))) {
+            if (corners[0].matches("YOG")) {
+                U2();
+                Lprime();
+                Uprime();
+                L();
+                Uprime();
+                solution += "U2 L' U' L U' ";
+            } else if (corners[0].matches("OGY")) {
+                U();
+                R();
+                U2();
+                Rprime();
+                U();
+                solution += "U R U2 R' U ";
+            } else if (corners[0].matches("GYO")) {
+                U2();
+                R();
+                Uprime();
+                Rprime();
+                U2();
+                solution += "U2 R U' R' U2 ";
+            } else if (corners[1].matches("YOG")) {
+                Lprime();
+                Uprime();
+                L();
+                solution += "L' U' L ";
+            } else if (corners[1].matches("OGY")) {
+                Lprime();
+                U();
+                L();
+                solution += "L' U L ";
+            } else if (corners[1].matches("GYO")) {
+                Uprime();
+                Lprime();
+                U2();
+                L();
+                Uprime();
+                solution += "U' L' U2 L U' ";
+            } else if (corners[2].matches("YOG")) {
+                Lprime();
+                U2();
+                L();
+                solution += "L' U2 L ";
+            } else if (corners[2].matches("OGY")) {
+                U();
+                Lprime();
+                Uprime();
+                L();
+                solution += "U L' U' L ";
+            } else if (corners[2].matches("GYO")) {
+                U2();
+                Lprime();
+                Uprime();
+                L();
+                Uprime();
+                solution += "U2 L' U' L U' ";
+            } else if (corners[3].matches("YOG")) {
+                Lprime();
+                U2();
+                L();
+                solution += "L' U2 L ";
+            } else if (corners[3].matches("OGY")) {
+                U();
+                Lprime();
+                U();
+                L();
+                U2();
+                solution += "U L' U L U2 ";
+            } else if (corners[3].matches("GYO")) {
+                Uprime();
+                Lprime();
+                U();
+                L();
+                solution += "U' L' U L ";
+            } else if (corners[4].matches("YOG")) {
+                U();
+                Dprime();
+                Lprime();
+                Uprime();
+                L();
+                D();
+                solution += "U D' L' U' L D ";
+            } else if (corners[4].matches("OGY")) {
+                Lprime();
+                U();
+                L();
+                solution += "L' U L ";
+            } else if (corners[4].matches("GYO")) {
+                Lprime();
+                Uprime();
+                L();
+                solution += "L' U' L ";
+            } else if (corners[5].matches("YOG")) {
+                R();
+                U();
+                Rprime();
+                Uprime();
+                solution += "R U R' U' ";
+            } else if (corners[5].matches("OGY")) {
+                Uprime();
+                R();
+                U();
+                Rprime();
+                solution += "U' R U R' ";
+            } else if (corners[5].matches("GYO")) {
+                U();
+                R();
+                Uprime();
+                Rprime();
+                solution += "U R U' R' ";
             }
         }
     }
