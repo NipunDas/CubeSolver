@@ -1,11 +1,26 @@
+import java.io.IOException;
+import java.io.File;
+
 public class Driver {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Cube cube = new Cube();
-        cube.scramble("U2 F D2 B2 R2 F R2 F2 R2 B2 U F' L2 R2 D2 U L B' R' F'");
-        cube.print();
+        //cube.scramble("R2 F2 L U2 L D2 L D2 R' D2 B2 U B2 R' B2 U' F L U' B");
+        cube.setColors(args[0]);
+        //System.out.println(cube.printCubeSolution());
+        //System.out.println(cube.getMoveCount());
         cube.solve();
-        System.out.println();
-        System.out.println(cube.getSolution());
+        String URL = "https://alg.cubing.net/?alg=" + cube.printCubeSolution() + "&setup=%2F%2FIgnore_Setup_%26%2345%3B_Solving_Instructions_in_-Moves-_Section%0A" + cube.invertSolution();
+        //System.out.println(URL);
+
+        openWebsite(URL);
+    }
+
+    public static void openWebsite(String url) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        File chromeDirectory = new File("C:/Program Files/Google/Chrome/Application");
+        rt.exec("C://Program Files//Google//Chrome//Application//chrome.exe " + url,  null, chromeDirectory);
+        //rt.exec("cd C:\Program Files\Google\Chrome\Application");
+        //rt.exec("chrome.exe " + url);
     }
 }
