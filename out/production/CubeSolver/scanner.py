@@ -2,7 +2,7 @@ import cv2 as cv
 import webbrowser
 import subprocess
 
-capture = cv.VideoCapture(0)
+capture = cv.VideoCapture(1)
 
 def changeRes(width, height):
     capture.set(3, width)
@@ -40,7 +40,7 @@ def getColor(img, x, y):
         return 'B'
     elif (img[y,x,0] < img[y,x,1] and img[y,x,2] < 100):
         return 'G'
-    elif (img[y,x,2] < 150):
+    elif (img[y,x,1] < 60):
         return 'R'
     elif ((img[y,x,1]-img[y,x,2]) > 50):
         return 'O'
@@ -77,7 +77,7 @@ while True:
     addText('White', 'B', 'G', 'O', 'R')
     
     #test code (prints out BGR values for center sticker)
-    cv.putText(frame, str(frame[c5y,c5x,0]) + " " + str(frame[c5y,c5x,1]) + " " + str(frame[c5y,c5x,2]), (70,70), cv.FONT_HERSHEY_TRIPLEX, 1.0, (0,0,255), thickness=1)
+    #cv.putText(frame, str(frame[c5y,c5x,0]) + " " + str(frame[c5y,c5x,1]) + " " + str(frame[c5y,c5x,2]), (70,70), cv.FONT_HERSHEY_TRIPLEX, 1.0, (0,0,255), thickness=1)
 
     #displays webcam feed
     cv.imshow('Webcam', frame)

@@ -5,14 +5,12 @@ public class Driver {
 
     public static void main(String[] args) throws IOException {
         Cube cube = new Cube();
-        //cube.scramble("R2 F2 L U2 L D2 L D2 R' D2 B2 U B2 R' B2 U' F L U' B");
         cube.setColors(args[0]);
         //System.out.println(cube.printCubeSolution());
         //System.out.println(cube.getMoveCount());
         cube.solve();
         String URL = "https://alg.cubing.net/?alg=" + cube.printCubeSolution() + "&setup=%2F%2FIgnore_Setup_%26%2345%3B_Solving_Instructions_in_-Moves-_Section%0A" + cube.invertSolution();
         //System.out.println(URL);
-
         openWebsite(URL);
     }
 

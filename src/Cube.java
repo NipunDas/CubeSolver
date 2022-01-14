@@ -1422,7 +1422,7 @@ public class Cube {
         }
     }
 
-    //solves OLL (makes all top yellow)
+    //solves OLL (makes all top white)
     public void solveOLL() {
         switch (getOLL()) {
             case SUNE -> {
@@ -1545,6 +1545,12 @@ public class Cube {
                 YPerm();
             }
         }
+
+        //detecting epll skip
+        if (edges[0].matches("WB") && edges[1].matches("WR") && edges[2].matches("WG") && edges[3].matches("WO")) {
+            return;
+        }
+
         //solve edges
         if (edges[1].matches("WR")) {
             if (edges[2].getC2() == corners[3].getC3()) {
@@ -1650,7 +1656,7 @@ public class Cube {
                 return OLL.H;
             }
         } else {
-            if (corners[0].getC1() == 'W' || corners[1].getC1() == 'W' && !(corners[0].getC1() == 'W' || corners[1].getC1() == 'W')) {
+            if (corners[0].getC1() == 'W' && corners[2].getC1() == 'W' && !(corners[0].getC1() == 'W' || corners[2].getC1() == 'W')) {
                 return OLL.L;
             } else {
                 if (corners[0].getC1() == 'W' && corners[1].getC1() == 'W') {
